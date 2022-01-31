@@ -50,7 +50,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::resource('Add_Author', 'App\Http\Controllers\Admin\AuthorController');
     Route::resource('BookController', 'App\Http\Controllers\Admin\BookController');
-    Route::resource('SubCategoryController', 'App\Http\Controllers\Admin\SubCategory');
+    Route::resource('SubCategoryController', 'App\Http\Controllers\Admin\SubCategoryController');
 
 });
 

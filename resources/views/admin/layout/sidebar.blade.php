@@ -34,9 +34,9 @@
                 </a>
             </li>
             <li>
-                <a href="typography.html">
+                <a href="{{ route('SubCategoryController.index') }}">
                     <i class="pe-7s-news-paper"></i>
-                    <p>تایپوگرافی</p>
+                    <p>دسته بندی ها</p>
                 </a>
             </li>
             <li>
