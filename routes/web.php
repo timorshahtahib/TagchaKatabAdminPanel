@@ -39,15 +39,12 @@ Route::get('/categories', function () {
 
 Route::prefix('admin')->middleware('auth')->group(function () {
 
-   Route::get('/dashboard', function () {
-       return view('admin.dashboard');
-   })->name('admin');
-
-   Route::get('/', function () {
-       return view('admin.dashboard');
-   })->name('admin');
 
 
+
+
+    Route::get('/', 'App\Http\Controllers\Admin\DashboardController@index')->name('admin');
+    Route::resource('Dashboard', 'App\Http\Controllers\Admin\DashboardController');
     Route::resource('Add_Author', 'App\Http\Controllers\Admin\AuthorController');
     Route::resource('BookController', 'App\Http\Controllers\Admin\BookController');
     Route::resource('SubCategoryController', 'App\Http\Controllers\Admin\SubCategoryController');

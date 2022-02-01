@@ -25,7 +25,7 @@
             </ul>
         </nav>
         <p class="copyright pull-left">
-            ۱۳۹۵ &copy; راست‌به‌چپ شده توسط <a href="http://mmnaderi.ir">محمد مهدی نادری</a>
+            1400 &copy; راست‌به‌چپ شده توسط <a href="https://poraanict.com" target="_blank">تیمورشاه</a>
         </p>
     </div>
 </footer>

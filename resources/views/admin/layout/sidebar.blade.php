@@ -39,36 +39,23 @@
                     <p>دسته بندی ها</p>
                 </a>
             </li>
+
             <li>
-                <a href="icons.html">
-                    <i class="pe-7s-science"></i>
-                    <p>آیکون‌ها</p>
-                </a>
-            </li>
-            <li>
-                <a href="maps.html">
-                    <i class="pe-7s-map-marker"></i>
-                    <p>نقشه ها</p>
-                </a>
-            </li>
-            <li>
-                <a href="notifications.html">
-                    <i class="pe-7s-bell"></i>
-                    <p>اعلانات</p>
+                <a href="{{ route('logout') }}"
+                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                    {{ __('خروج') }}
+                    <i class="pe-7s-right-arrow"></i>
                 </a>
             </li>
             <li class="active-pro">
+                <div >
 
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                    <a href="{{ route('logout') }}">
 
-                    </a>
-
-                    <button >    <i class="pe-7s-rocket"></i>
-                        <p>خروج</p></button>
-                </form>
-
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </div>
             </li>
         </ul>
     </div>
