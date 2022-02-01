@@ -11,9 +11,9 @@
                         <div class="inner">
                             <h3>{{ $books->count()}}</h3>
 
-                            <p>مجموعه کتاب ها</p>
+                            <p >مجموعه کتاب ها</p>
                         </div>
-                        <div class="icon">
+                        <div class="pe-7s-notebook">
                             .
                         </div>
                         @php
@@ -37,7 +37,7 @@
 
                             <p>تمام نویسندها </p>
                         </div>
-                        <div class="icon">
+                        <div class="pe-7s-users">
                            ..
                         </div>
                         @php
@@ -58,8 +58,8 @@
 
                             <p>تعداد دسته بندی ها</p>
                         </div>
-                        <div class="icon">
-                            ....
+                        <div class="pe-7s-bookmarks">
+                            .
                         </div>
                         <a href="" class="small-box-footer">..</a>
                     </div>
