@@ -38,9 +38,15 @@
                             <p>تمام نویسندها </p>
                         </div>
                         <div class="icon">
-                            ؋
+                           ..
                         </div>
-                        <a href="" class="small-box-footer"> نویسنده های امروز اضافه شده : {{$author->count()}} </a>
+                        @php
+                            $today =  date('Y-m-d');
+                              $start_date = $today.' 00:00:00';
+                              $end_date = $today.' 23:59:59';
+
+                        @endphp
+                        <a href="" class="small-box-footer"> نویسنده های امروز اضافه شده : {{$author->whereBetween('created_at', [$start_date, $end_date])->count()}} </a>
                     </div>
                 </div>
 
@@ -53,7 +59,7 @@
                             <p>تعداد دسته بندی ها</p>
                         </div>
                         <div class="icon">
-                            ؋
+                            ....
                         </div>
                         <a href="" class="small-box-footer">..</a>
                     </div>
