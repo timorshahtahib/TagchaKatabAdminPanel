@@ -32,6 +32,7 @@
                                     <th>شماره</th>
                                     <th>عکس</th>
                                     <th>عنوان</th>
+                                    <th>زیر شاخه</th>
                                     <th>عملیات</th>
 
                                 </tr>
@@ -40,8 +41,9 @@
                                     @foreach($SubCategory as $subcategory)
                                         <tr>
                                         <td>{{$subcategory->id}}</td>
-                                        <td><img src="{{ asset('storage/images/book_image/'.$subcategory->image_link) }}"  style="  width:50px;height:50px;border-radius: 50% ;" alt="Avatar"/></td>
+                                        <td><img src="{{ asset('storage/images/sub_category_image/'.$subcategory->image_link) }}"  style="  width:50px;height:50px;border-radius: 50% ;" alt="Avatar"/></td>
                                         <td>{{$subcategory->name}}</td>
+                                        <td>{{$subcategory->category->name}}</td>
 
                                             <td>
                                                 <div class="btn-group">
@@ -50,7 +52,10 @@
                                                     @method('delete')
                                                     <button class="btn btn-xs btn-danger">delete</button>
                                                 </form>
+                                                    <form action="{{route('SubCategoryController.edit',$subcategory->id)}}" method="get">
 
+                                                        <button class="btn btn-xs btn-info">edit</button>
+                                                    </form>
                                             </div>
                                             </td>
                                         </tr>

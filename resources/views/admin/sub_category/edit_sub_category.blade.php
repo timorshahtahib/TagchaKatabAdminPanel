@@ -26,13 +26,14 @@
                             </div>
                         @endif
                         <div class="content">
-                            <form action="{{route('SubCategoryController.store')}}" method="post" enctype="multipart/form-data">
+                            <form action="{{route('SubCategoryController.update',$sub_category_model->id)}}" method="post" enctype="multipart/form-data">
                                 @csrf
+                                @method('put')
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>نام</label>
-                                            <input type="text"  name="name" class="form-control" placeholder="نام">
+                                            <input type="text"  name="name" class="form-control" placeholder="نام" value="{{$sub_category_model->name}}">
                                         </div>
                                     </div>
 
@@ -46,9 +47,10 @@
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <select name="category_id" class="form-control" >
-                                                    @foreach($categories as $cat)
-                                                        <option value="{{$cat->id}}">{{$cat->name}}</option>
+                                                    @foreach(\App\Models\Category::all() as $cat)
+                                                        <option value="{{ $cat->id }}" {{ $cat->id == $sub_category_model->category_id ? 'selected' : '' }}>{{ $cat->name }}</option>
 
+{{--                                                       /// <option value="{{$cat->id}}"  {{ in_array($cat->id , $sub_category_model->category->pluck('id')->toArray()) ? 'selected' : '' }}>{{$cat->name}}</option>--}}
                                                     @endforeach
 
                                                 </select>
@@ -63,9 +65,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>درباره دسته بندی</label>
-                                            <textarea rows="5"  name="description" class="form-control"
-                                                      placeholder="اینجا میتواند توضیحات شما باشد."
-                                                      ></textarea>
+                                            <textarea rows="5"  name="description" class="form-control" placeholder="اینجا میتواند توضیحات شما باشد."> {{$sub_category_model->description}}</textarea>
                                         </div>
                                     </div>
                                 </div>

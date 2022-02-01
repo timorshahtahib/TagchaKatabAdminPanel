@@ -41,7 +41,7 @@ class BookController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(BookRequest $request)
     {
@@ -111,7 +111,7 @@ class BookController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Book  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(int $id)
     {
