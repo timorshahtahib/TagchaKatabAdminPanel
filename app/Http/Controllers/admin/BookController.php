@@ -33,10 +33,6 @@ class BookController extends Controller
     {
       //  $categories=\App\Models\Category::query()->with('SubCategory')->get();
         $categories=Category::all();
-
-
-
-     //   $SubCategories=\App\Models\SubCategory::query()->with('category')->get();
         $SubCategories=SubCategory::all();
         return  view('admin.book.add_book',compact('categories','SubCategories'));
     }

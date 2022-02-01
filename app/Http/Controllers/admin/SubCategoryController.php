@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
+use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
@@ -17,8 +18,9 @@ class SubCategoryController extends Controller
     public function index()
     {
 
-        $subcategories = SubCategory::all();
-        return view('admin.sub_category.index', compact('subcategories'));
+        $SubCategory = SubCategory::all();
+
+        return view('admin.sub_category.index', compact('SubCategory'));
         //
     }
 
@@ -29,7 +31,10 @@ class SubCategoryController extends Controller
      */
     public function create()
     {
-        //
+
+        $categories=Category::all();
+        return  view('admin.sub_category.add_sub_category',compact('categories'));
+
     }
 
     /**
@@ -40,7 +45,7 @@ class SubCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**

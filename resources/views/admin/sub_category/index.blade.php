@@ -37,7 +37,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($subcategories as $subcategory)
+                                    @foreach($SubCategory as $subcategory)
                                         <tr>
                                         <td>{{$subcategory->id}}</td>
                                         <td><img src="{{ asset('storage/images/book_image/'.$subcategory->image_link) }}"  style="  width:50px;height:50px;border-radius: 50% ;" alt="Avatar"/></td>
