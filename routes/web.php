@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\NotificationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,3 +55,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+Route::get('push-notification', [NotificationController::class, 'index']);
+Route::post('sendNotification', [NotificationController::class, 'sendNotification'])->name('send.notification');
