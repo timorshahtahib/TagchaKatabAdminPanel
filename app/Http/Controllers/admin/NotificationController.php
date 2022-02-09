@@ -47,13 +47,10 @@ class NotificationController extends Controller
 
         $response = curl_exec($ch);
 
-        if (isset($response['success'])){
+
             return back()->with('success', 'Notification send successfully.');
 
-        }else{
-            return back()->with('success', 'Notification not send successfully.');
 
-        }
 
     }
 }
