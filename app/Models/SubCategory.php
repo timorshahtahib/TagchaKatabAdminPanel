@@ -28,6 +28,6 @@ class SubCategory extends Model
     }
 
     public  function books(){
-      return  $this->belongsToMany(Book::class);
+      return  $this->hasMany(Book::class);
     }
 }

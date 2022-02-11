@@ -26,4 +26,10 @@ class Category extends Model
     {
         return $this->hasMany(SubCategory::class);
     }
+
+
+    public  function Books(){
+        return $this->hasManyThrough(Book::class,SubCategory::class)->orderBy('created_at', 'DESC');
+
+    }
 }

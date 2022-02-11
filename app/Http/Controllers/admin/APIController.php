@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\SubCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -37,6 +38,14 @@ class APIController extends Controller
 
     }
 
+    public function getNewBookByCategory($id)
+    {
+
+        $catgory=Category::find($id);
+        return ['books'=>$catgory->books];
+
+    }
+
     public function authors()
     {
         $authors = Author::orderBy('created_at')->get();
@@ -55,6 +64,16 @@ class APIController extends Controller
 
 
         return $Category->SubCategory;
+
+    }
+
+
+
+    public function geCategory()
+    {
+
+
+        return ['category'=>Category::all()];
 
     }
 
