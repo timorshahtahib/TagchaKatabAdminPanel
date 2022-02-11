@@ -18,7 +18,8 @@ class NotificationController extends Controller
 
     public function sendNotification(Request $request)
     {
-        $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all();
+       // $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all();
+        $firebaseToken = User::find(18)->pluck('device_token');
 
         $SERVER_API_KEY = env('FCM_SERVER_KEY');
 

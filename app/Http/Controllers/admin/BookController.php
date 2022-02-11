@@ -31,28 +31,41 @@ class BookController extends Controller
      */
     public function create()
     {
-      //  $categories=\App\Models\Category::query()->with('SubCategory')->get();
-        $categories=Category::all();
-        $SubCategories=SubCategory::all();
-        return  view('admin.book.add_book',compact('categories','SubCategories'));
+        //  $categories=\App\Models\Category::query()->with('SubCategory')->get();
+        $categories = Category::all();
+        $SubCategories = SubCategory::all();
+        return view('admin.book.add_book', compact('categories', 'SubCategories'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
+
+
     public function store(BookRequest $request)
     {
         $vlaidated = $request->validated();
 
+
         $image_path = $request->file('image_link')->store('public/images/book_image');
-        $image_path=$string = substr($image_path, 25);
+        $image_path = $string = substr($image_path, 25);
 
         $book_path = $request->file('download_link')->store('public/books');
-        $book_path=$string = substr($book_path, 13);
 
+
+        $book_path = $string = substr($book_path, 13);
+        $book_size = $request->file('download_link')->getSize();
+
+
+        $base = log($book_size, 1024);
+        $suffixes = array('', 'KB', 'MB', 'GB', 'TB');
+//
+//        $pdftext = file_get_contents( asset('storage/books/' .$book_path));
+//        $num = preg_match_all("/\/Page\W/", $pdftext, $dummy);
+        $book_size = round(pow(1024, $base - floor($base)), 2) ;
         $author = auth()->user()->Bookes()->create([
             'title' => $vlaidated['title'],
             'slug' => $vlaidated['title'],
@@ -64,19 +77,20 @@ class BookController extends Controller
             'author_id' => $vlaidated['author_id'],
             'another_language_text' => 'فارسی',
             'another_language' => 0,
-            'size' => $vlaidated['page'],
+            'size' => $book_size,
             'page' => $vlaidated['page'],
-            'is_hot' => 1,
+            'is_hot' => 0,
         ]);
 
         return redirect('admin/BookController/create')->with('status', 'کتاب موفقانه اضافه شد');;
 
     }
 
+
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Book  $book
+     * @param \App\Models\Book $book
      * @return \Illuminate\Http\Response
      */
     public function show(Book $book)
@@ -87,7 +101,7 @@ class BookController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Book  $book
+     * @param \App\Models\Book $book
      * @return \Illuminate\Http\Response
      */
     public function edit(Book $book)
@@ -98,8 +112,8 @@ class BookController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Book  $book
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Book $book
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Book $book)
@@ -110,7 +124,7 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Book  $id
+     * @param \App\Models\Book $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(int $id)
@@ -118,8 +132,8 @@ class BookController extends Controller
 
         $Book = Book::findOrFail($id);
 
-        unlink('.'.Storage::url('images/book_image/'.$Book->image_link));
-        unlink('.'.Storage::url('books/'.$Book->download_link));
+        unlink('.' . Storage::url('images/book_image/' . $Book->image_link));
+        unlink('.' . Storage::url('books/' . $Book->download_link));
         $Book->delete();
 
 

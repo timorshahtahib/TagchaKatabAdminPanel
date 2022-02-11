@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class APIController extends Controller
 {
@@ -17,7 +19,7 @@ class APIController extends Controller
      */
     public function index()
     {
-        $new_books = Book::orderBy('created_at')->skip(0)->take(10)->get();
+        $new_books = Book::skip(0)->take(10)->orderBy('created_at', 'DESC')->get();
         $Hot_books = Book::where('is_hot', 1)->skip(0)->take(10)->orderBy('created_at')->get();
         $authors = Author::orderBy('created_at')->skip(0)->take(10)->get();
         return ['new_books' => $new_books, "HotBooks" => $Hot_books, 'authors' => $authors];
@@ -25,10 +27,26 @@ class APIController extends Controller
 
     }
 
-    public function authors(){
-        $authors = Author::orderBy('created_at')->skip(0)->take(10)->get();
+    public function HotBooks()
+    {
+
+        $Hot_books = Book::where('is_hot', 1)->skip(0)->take(10)->orderBy('created_at')->get();
+
+        return ["HotBooks" => $Hot_books];
+
+
+    }
+
+    public function authors()
+    {
+        $authors = Author::orderBy('created_at')->get();
         return ['authors' => $authors];
 
+    }
+
+    public function search($name)
+    {
+        return Book::where('title', 'like', '%' . $name . '%')->orwhere('body', 'like', '%' . $name . '%')->get();
     }
 
 
@@ -105,5 +123,68 @@ class APIController extends Controller
     public function destroy(Book $book)
     {
         //
+    }
+
+//
+//    public function login($email)
+//    {
+//
+////        $fields = $request->validate([
+////            'email' => 'required',
+////            'name' => 'required',
+////            'device_token' => 'required',
+////
+////        ]);
+//
+//
+//        $user = User::where('email', $email)->first();
+//
+//        if (!$user) {
+//            $user = User::create([
+//                'email' => $email,
+//                'name' =>$email,
+//                'device_token' => $email,
+//                'fcm_token' =>  $email,
+//                'password' => bcrypt('password'),
+//            ]);
+//
+//
+//        }
+//
+//        $message="ok";
+//    return response(['user'=>$user]);
+//     ///   return response(['message'=>$message]);
+//
+//    }
+
+    public function login(Request $request)
+    {
+
+        $fields = $request->validate([
+            'email' => 'required',
+            'name' => 'required',
+            'device_token' => 'required',
+
+        ]);
+
+
+        $user = User::where('email', $fields['email'])->first();
+
+        if (!$user) {
+            $user = User::create([
+                'email' => $fields['email'],
+                'name' => $fields['name'],
+                'device_token' => $fields['device_token'],
+                'fcm_token' =>  $fields['device_token'],
+                'password' => bcrypt('password'),
+            ]);
+        }else{
+            $user->update($request->all());
+        }
+
+        $message="ok";
+    return response()->json(['user'=>$user]);
+     ///   return response(['message'=>$message]);
+
     }
 }

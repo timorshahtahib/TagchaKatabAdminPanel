@@ -19,7 +19,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/books', [APIController::class, 'index']);
 Route::get('/Sub/{Category}', [APIController::class, 'getSubCategory']);
+Route::get('/search/{name}', [APIController::class, 'search']);
 Route::get('/authors', [APIController::class, 'authors']);
+Route::get('/hotBook', [APIController::class, 'HotBooks']);
+Route::post('/login', [APIController::class, 'login']);
+Route::get('/login{email}', [APIController::class, 'login']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

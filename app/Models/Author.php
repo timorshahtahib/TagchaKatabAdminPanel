@@ -10,20 +10,22 @@ class Author extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'last_name', 'bio', 'image_link', 'user_id'];
-    protected $appends = ['authorbook'];
+   protected $appends = ['image'];
 
     protected $hidden = [
 
         'created_at',
         'updated_at',
-        'books',
+        'image_link',
+        'user_id',
+
     ];
 
 
 
-    public function getAuthorbookAttribute()
+    public function getImageAttribute()
     {
-        return  $this->books;
+        return asset('storage/images/author_image/' . $this->download_link);
 
     }
 
