@@ -64,7 +64,23 @@ class APIController extends Controller
     {
 
         $catgory = Category::find($id);
-        return ['books' => $catgory->books];
+        return ['books' => $catgory->NewBooks];
+
+    }
+
+    public function getHotBookByCategory($id)
+    {
+
+        $catgory = Category::find($id);
+        return ['books' => $catgory->HotBooks];
+
+    }
+
+    public function getNewBookBySubCategory($id)
+    {
+
+        $subcategory = SubCategory::find($id);
+        return ['books' => $subcategory->books];
 
     }
 
@@ -77,7 +93,7 @@ class APIController extends Controller
 
     public function search($name)
     {
-        return Book::where('title', 'like', '%' . $name . '%')->orwhere('body', 'like', '%' . $name . '%')->get();
+        return['new_books'=> Book::where('title', 'like', '%' . $name . '%')->orwhere('body', 'like', '%' . $name . '%')->get()];
     }
 
 

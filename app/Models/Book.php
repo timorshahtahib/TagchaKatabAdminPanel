@@ -32,10 +32,10 @@ class Book extends Model
     public function getSabNameAttribute()
     {
 
+$cat_name=$this->SubCategory->category->name;
+$sub_name=$this->SubCategory->name;
 
-
-    //    return Category::where('id',$this->SubCategory->id)->orderBy('created_at', 'asc')->first();
-      return $this->SubCategory->category->name;
+      return $cat_name."-".$sub_name;
 
     }
 

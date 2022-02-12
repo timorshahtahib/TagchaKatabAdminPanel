@@ -28,8 +28,12 @@ class Category extends Model
     }
 
 
-    public  function Books(){
+    public  function NewBooks(){
         return $this->hasManyThrough(Book::class,SubCategory::class)->orderBy('created_at', 'DESC');
+
+    }
+    public  function HotBooks(){
+        return $this->hasManyThrough(Book::class,SubCategory::class)->where('is_hot', 1)->orderBy('id', 'DESC');
 
     }
 }

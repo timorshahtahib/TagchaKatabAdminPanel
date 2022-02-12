@@ -23,6 +23,8 @@ Route::get('/author/{id}/books', [APIController::class, 'getBookByAuthor']);
 Route::get('/category/{Category}/subcategory', [APIController::class, 'getSubCategory']);
 Route::get('/category', [APIController::class, 'geCategory']);
 Route::get('/book_by_category/{id}', [APIController::class, 'getNewBookByCategory']);
+Route::get('/book_by_category_hot/{id}', [APIController::class, 'getHotBookByCategory']);
+Route::get('/book_by_sub_category/{id}', [APIController::class, 'getNewBookBySubCategory']);
 Route::get('/search/{name}', [APIController::class, 'search']);
 Route::get('/authors', [APIController::class, 'authors']);
 Route::get('/hotBook', [APIController::class, 'HotBooks']);
