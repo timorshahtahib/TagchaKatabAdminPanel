@@ -20,7 +20,16 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::all();
+
+        $books=Book::query()->with('SubCategory','author')->get();
+
+//        dd($books);
+////        $books = Book::find(5);
+////
+////        $sub=SubCategory::find(5);
+////
+////
+////     dd($sub->books);
         return view('admin.book.index', compact('books'));
     }
 

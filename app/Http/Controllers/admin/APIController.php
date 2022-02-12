@@ -10,6 +10,7 @@ use App\Models\SubCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use function Doctrine\Common\Cache\Psr6\get;
 
 class APIController extends Controller
 {
@@ -20,10 +21,12 @@ class APIController extends Controller
      */
     public function index()
     {
-        $new_books = Book::skip(0)->take(10)->orderBy('created_at', 'DESC')->get();
-        $Hot_books = Book::where('is_hot', 1)->skip(0)->take(10)->orderBy('created_at')->get();
+
+        $new_books=Book::query()->with('SubCategory','author')->skip(0)->take(10)->orderBy('created_at', 'DESC')->get();
+
+        $Hot_books = Book::query()->with('SubCategory','author')->where('is_hot', 1)->skip(0)->take(10)->orderBy('created_at')->get();
         $authors = Author::orderBy('created_at')->skip(0)->take(10)->get();
-        return ['new_books' => $new_books, "HotBooks" => $Hot_books, 'authors' => $authors];
+        return ["new_books"=>$new_books,"HotBooks" => $Hot_books, 'authors' => $authors];
 
 
     }
@@ -71,11 +74,16 @@ class APIController extends Controller
 
     public function geCategory()
     {
-
-
         return ['category'=>Category::all()];
-
     }
+
+
+//    public function geSubCategory($id)
+//    {
+//
+//        $sub=SubCategory::where('category_id',$id)-get();
+//        return ['subcategory'=>$sub];
+//    }
 
 
     /**
