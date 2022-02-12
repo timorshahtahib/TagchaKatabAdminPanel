@@ -28,6 +28,23 @@
 
                     <form action="{{ route('send.notification') }}" method="POST">
                         @csrf
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="user">انتخاب کاربر<span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select name="user" class="form-control" >
+
+                                    <option value="0">همه</option>
+
+                                @foreach($users as $user)
+                                        <option value="{{$user->id}}">{{$user->name}}</option>
+
+                                    @endforeach
+
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label>Title</label>
                             <input type="text" class="form-control" name="title">

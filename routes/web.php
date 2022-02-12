@@ -41,8 +41,8 @@ Route::get('/categories', function () {
 Route::prefix('admin')->middleware('auth')->group(function () {
 
 
-
-
+    Route::get('push-notification', [NotificationController::class, 'index']);
+    Route::post('sendNotification', [NotificationController::class, 'sendNotification'])->name('send.notification');
 
     Route::get('/', 'App\Http\Controllers\Admin\DashboardController@index')->name('admin');
     Route::resource('Dashboard', 'App\Http\Controllers\Admin\DashboardController');
@@ -58,5 +58,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 
-Route::get('push-notification', [NotificationController::class, 'index']);
-Route::post('sendNotification', [NotificationController::class, 'sendNotification'])->name('send.notification');
+

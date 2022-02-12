@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use function Doctrine\Common\Cache\Psr6\get;
 
 class NotificationController extends Controller
 {
@@ -12,15 +13,32 @@ class NotificationController extends Controller
 
     public function index()
     {
-        return view('pushNotification');
+
+
+        $users = User::all();
+        return view('pushNotification', compact('users'));
     }
 
 
     public function sendNotification(Request $request)
     {
-       // $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all();
-        $firebaseToken = User::find(18)->pluck('device_token');
 
+
+        $user_id = (int)$request->user;
+
+
+
+
+        if ($user_id ==0) {
+            $firebaseToken = User::query()->pluck('device_token')->all();
+
+        } else {
+                $firebaseToken = User::query()->where('id','=',$user_id)->pluck('device_token')->toArray();
+
+        }
+
+
+//   dd($firebaseToken);
         $SERVER_API_KEY = env('FCM_SERVER_KEY');
 
         $data = [
@@ -49,8 +67,7 @@ class NotificationController extends Controller
         $response = curl_exec($ch);
 
 
-            return back()->with('success', 'Notification send successfully.');
-
+        return back()->with('success', 'Notification send successfully.');
 
 
     }
