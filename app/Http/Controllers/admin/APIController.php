@@ -22,11 +22,30 @@ class APIController extends Controller
     public function index()
     {
 
-        $new_books=Book::query()->with('SubCategory','author')->skip(0)->take(10)->orderBy('created_at', 'DESC')->get();
+        $new_books = Book::query()->with('SubCategory', 'author')->skip(0)->take(10)->orderBy('created_at', 'DESC')->get();
 
-        $Hot_books = Book::query()->with('SubCategory','author')->where('is_hot', 1)->skip(0)->take(10)->orderBy('created_at')->get();
+        $Hot_books = Book::query()->with('SubCategory', 'author')->where('is_hot', 1)->skip(0)->take(10)->orderBy('created_at')->get();
         $authors = Author::orderBy('created_at')->skip(0)->take(10)->get();
-        return ["new_books"=>$new_books,"HotBooks" => $Hot_books, 'authors' => $authors];
+        return ["new_books" => $new_books, "HotBooks" => $Hot_books, 'authors' => $authors];
+
+
+    }
+
+    public function getBookByID($id)
+    {
+        $book = Book::find($id);
+        // $new_books=Book::query()->with('SubCategory','author')->skip(0)->take(10)->orderBy('created_at', 'DESC')->get();
+
+        return ["new_books" => $book];
+
+
+    }
+
+    public function getBookByAuthor($id)
+    {
+        $authors = Author::find($id);
+
+        return ["books" => $authors->books];
 
 
     }
@@ -44,8 +63,8 @@ class APIController extends Controller
     public function getNewBookByCategory($id)
     {
 
-        $catgory=Category::find($id);
-        return ['books'=>$catgory->books];
+        $catgory = Category::find($id);
+        return ['books' => $catgory->books];
 
     }
 
@@ -66,15 +85,14 @@ class APIController extends Controller
     {
 
 
-        return $Category->SubCategory;
+        return ['subcategories' => $Category->SubCategory];
 
     }
 
 
-
     public function geCategory()
     {
-        return ['category'=>Category::all()];
+        return ['category' => Category::all()];
     }
 
 
@@ -202,16 +220,16 @@ class APIController extends Controller
                 'email' => $fields['email'],
                 'name' => $fields['name'],
                 'device_token' => $fields['device_token'],
-                'fcm_token' =>  $fields['device_token'],
+                'fcm_token' => $fields['device_token'],
                 'password' => bcrypt('password'),
             ]);
-        }else{
+        } else {
             $user->update($request->all());
         }
 
-        $message="ok";
-    return response()->json(['user'=>$user]);
-     ///   return response(['message'=>$message]);
+        $message = "ok";
+        return response()->json(['user' => $user]);
+        ///   return response(['message'=>$message]);
 
     }
 }

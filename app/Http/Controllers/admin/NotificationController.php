@@ -38,7 +38,7 @@ class NotificationController extends Controller
         }
 
 
-//   dd($firebaseToken);
+
         $SERVER_API_KEY = env('FCM_SERVER_KEY');
 
         $data = [

@@ -18,7 +18,9 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/books', [APIController::class, 'index']);
-Route::get('/Sub/{Category}', [APIController::class, 'getSubCategory']);
+Route::get('/books/{id}', [APIController::class, 'getBookByID']);
+Route::get('/author/{id}/books', [APIController::class, 'getBookByAuthor']);
+Route::get('/category/{Category}/subcategory', [APIController::class, 'getSubCategory']);
 Route::get('/category', [APIController::class, 'geCategory']);
 Route::get('/book_by_category/{id}', [APIController::class, 'getNewBookByCategory']);
 Route::get('/search/{name}', [APIController::class, 'search']);
