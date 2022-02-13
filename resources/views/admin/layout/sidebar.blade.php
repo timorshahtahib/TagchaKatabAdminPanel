@@ -41,6 +41,13 @@
             </li>
 
             <li>
+                <a href="{{ route('push-notification') }}">
+                    <i class="pe-7s-news-paper"></i>
+                    <p>ارسال نوتیفیکیشن </p>
+                </a>
+            </li>
+
+            <li>
                 <a href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
