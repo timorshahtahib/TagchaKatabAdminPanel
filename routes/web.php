@@ -1,6 +1,11 @@
 <?php
 
-use App\Http\Controllers\admin\NotificationController;
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\SubCategoryController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,41 +19,46 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-})->name('site');
-Route::get('/index', function () {
-    return view('index');
-})->name('site');
-Route::get('/about', function () {
-    return view('about');
-});
-
-Route::get('/contact', function () {
-    return view('contact');
-});
-Route::get('/blog', function () {
-    return view('blog');
-});
-Route::get('/categories', function () {
-    return view('categories');
-});
+//Route::get('/', function () {
+//    return view('index');
+//})->name('site');
+//Route::get('/index', function () {
+//    return view('index');
+//})->name('site');
+//Route::get('/about', function () {
+//    return view('about');
+//});
+//
+//Route::get('/contact', function () {
+//    return view('contact');
+//});
+//Route::get('/blog', function () {
+//    return view('blog');
+//});
+//Route::get('/categories', function () {
+//    return view('categories');
+//});
 
 //Route::get('/admin/', function () {
 //    return view('admin.dashboard');
 //})->middleware('auth');
 
-Route::prefix('admin')->middleware('auth')->group(function () {
+Route::prefix('/')->middleware('auth')->group(function () {
 
 
     Route::get('push-notification', [NotificationController::class, 'index'])->name('push-notification');
     Route::post('sendNotification', [NotificationController::class, 'sendNotification'])->name('send.notification');
 
-    Route::get('/', 'App\Http\Controllers\Admin\DashboardController@index')->name('admin');
-    Route::resource('Dashboard', 'App\Http\Controllers\Admin\DashboardController');
-    Route::resource('Add_Author', 'App\Http\Controllers\Admin\AuthorController');
-    Route::resource('BookController', 'App\Http\Controllers\Admin\BookController');
-    Route::resource('SubCategoryController', 'App\Http\Controllers\Admin\SubCategoryController');
+
+    Route::get('/', [DashboardController::class, 'index']);
+    Route::get('/Dashboard', [DashboardController::class, 'index'])->name('admin');
+
+
+    Route::resource('/Add_Author', AuthorController::class);
+    Route::resource('/BookController', BookController::class);
+    Route::resource('/SubCategoryController', SubCategoryController::class);
+
+
 
 });
 
