@@ -45,15 +45,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/')->middleware('auth')->group(function () {
 
-
     Route::get('push-notification', [NotificationController::class, 'index'])->name('push-notification');
     Route::post('sendNotification', [NotificationController::class, 'sendNotification'])->name('send.notification');
-
-
     Route::get('/', [DashboardController::class, 'index']);
     Route::get('/Dashboard', [DashboardController::class, 'index'])->name('admin');
-
-
     Route::resource('/Add_Author', AuthorController::class);
     Route::resource('/BookController', BookController::class);
     Route::resource('/SubCategoryController', SubCategoryController::class);
